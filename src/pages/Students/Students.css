@@ -1,40 +1,122 @@
-.students {
+.students-container {
   padding: 30px;
+  max-width: 1200px;
+  margin: auto;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-.students h1 {
+.students-container h1 {
   text-align: center;
-  color: #0d47a1;
+  color: #2c3e50;
+  margin-bottom: 8px;
+}
+
+.students-container p {
+  text-align: center;
+  color: #666;
   margin-bottom: 25px;
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-  background: #fff;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 25px;
 }
 
-th,
-td {
-  border: 1px solid #ddd;
-  padding: 12px;
-  text-align: center;
-}
-
-th {
-  background: #0d47a1;
+.add-btn {
+  background: #0d6efd;
   color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: 0.3s;
 }
 
-tr:nth-child(even) {
-  background: #f8f8f8;
+.add-btn:hover {
+  background: #0b5ed7;
 }
 
-tr:hover {
-  background: #eef5ff;
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-td {
-  word-break: break-word;
+.search-box input {
+  width: 280px;
+  padding: 10px 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+.search-box input:focus {
+  outline: none;
+  border-color: #0d6efd;
+  box-shadow: 0 0 5px rgba(13, 110, 253, 0.3);
+}
+
+.icon {
+  font-size: 24px;
+  color: #0d6efd;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin: 25px 0;
+}
+
+.pagination button {
+  background: #198754;
+  color: white;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.pagination button:hover:not(:disabled) {
+  background: #157347;
+}
+
+.pagination button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.pagination span {
+  font-weight: bold;
+  color: #333;
+}
+
+.react-logo {
+  display: block;
+  margin: 30px auto;
+  width: 90px;
+  animation: rotate 8s linear infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading {
+  text-align: center;
+  margin-top: 80px;
+  color: #0d6efd;
 }
