@@ -1,104 +1,167 @@
-import './App.css'
-import Navbar from './components/NavBar/NavBar'
-import Heading from './components/Heading' 
-import Student from './components/studentdetails'
-import Sidebar from './components/Sidebar/Sidebar'
-import Footer from './components/Footer/Footer'
-import Dashboard from './components/Dashboard/Dashboard'
-import Home from './pages/Home'
-import { useState } from 'react'
-import Register from './pages/Registration/Registration'
-import Login from './pages/Login/Login'
-import { Routes ,Route} from 'react-router-dom'
-import Layout from './components/Layout/Layout'
-import Companies from "./pages/Companies/Companies";
+import "./App.css";
+import { useState } from "react";
+import { Routes, Route } from "react-router-dom";
+
+import Layout from "./components/Layout/Layout";
+import ProtectedRoute from "./components/ProtectedRoute";
+
+import Home from "./pages/Home";
+import Login from "./pages/Login/Login";
+import AuthRegister from "./pages/authentication/AuthRegister";
+
+import Dashboard from "./components/Dashboard/Dashboard";
 import Students from "./pages/Students/Students";
-import NotFound from "./pages/NotFound";
+import Companies from "./pages/Companies/Companies";
+import Placement from "./pages/Placements/Placement";
+import Reports from "./pages/Reports/Reports";
+import Settings from "./pages/Settings/Settings";
+import Logout from "./pages/Logout/Logout";
+
+import Student from "./components/studentdetails";
+import EditStudent from "./pages/EditStudent/EditStudent";
+import NotFound from "./pages/NotFound/NotFound";
+
+
+function App() {
+
+  const [students, setStudents] = useState(() => {
+    const savedStudents = localStorage.getItem("students");
+
+    return savedStudents 
+      ? JSON.parse(savedStudents) 
+      : [];
+  });
+
+
+  return (
+
+    <Routes>
+
+
+      {/* PUBLIC ROUTES */}
+
+      <Route 
+        path="/login" 
+        element={<Login />} 
+      />
+
+
+      <Route 
+        path="/auth/register" 
+        element={<AuthRegister />} 
+      />
 
 
 
+      {/* PROTECTED ROUTES */}
+
+      <Route
+        element={
+          <ProtectedRoute>
+            <Layout />
+          </ProtectedRoute>
+        }
+      >
 
 
-//App.jsx the root component
-//initially everything is displayed from app.jsx
+        <Route 
+          path="/" 
+          element={<Home />} 
+        />
 
-//creating a root component
-//js--HTML-->jsx
-//jsx--browser
-//babel-->help to convert to js
-// const div= 
-// //fragment
-//     <>
-//       <h1>Welcome to chalapathi</h1>
-//       <p>Learn today and lead tomorrow</p>
-      
-//     </>
-//first component
-// const NavBar=function(){
-//   return(
-//     <h1>Placement Management System</h1>
 
-//   )
-// };
-//my second component
-// const Heading=function(){
-//   const name="Mouni"
-//   return(
-//     //can write js in html
-//     <p>Learn today,Lead tomorrow {name}</p>
-//   )
-// };
-function App(){
-  const [students,setStudents]=useState([])
-  function addStudent(){
-    setStudents(students+1)
-    console.log(students)
-  }
-  return(
-    <>
-    {/* <h1>{students}</h1>
-    <button onClick={addStudent}>Add student</button>
-    <Navbar/> */}
-    {/* <Heading 
-        name="Mouni"
-        year={2026}/>
-    <Student
-        name="Mouni"
-        roll="23ht1a05g1"
-        branch="CSE"/> */}
-        {/* <div className='main'>
-           <Sidebar/> */}
-           {/* <Home/> */}
-           {/* <Register/>
-           <Login/> */}
-      <Routes>
+        <Route 
+          path="/dashboard" 
+          element={<Dashboard />} 
+        />
 
-  <Route element={<Layout/>}>
 
-    <Route path="/" element={<Home/>}/>
+        <Route
+          path="/students"
+          element={
+            <Students
+              students={students}
+              setStudents={setStudents}
+            />
+          }
+        />
 
-    <Route path="/login" element={<Login/>}/>
 
-    <Route path="/register" element={<Register/>}/>
+        <Route
+          path="/students/:id"
+          element={<Student />}
+        />
 
-    <Route path="/dashboard" element={<Dashboard/>}/>
-    <Route path="/companies" element={<Companies />} />
-    
 
-    <Route path="/students" element={<Students />} />
-    <Route path="/students/:id" element={<Student />} />
-   
-    <Route path="/companies/:id" element={<Companies />} />
-     
-  </Route>
-  <Route path="*" element={<NotFound />} />
+        <Route
+          path="/students/edit/:id"
+          element={
+            <EditStudent
+              students={students}
+              setStudents={setStudents}
+            />
+          }
+        />
 
-</Routes>
-        {/* </div>
-         <Footer/> */}
-    </>
-  )
 
+
+        {/* Companies */}
+
+        <Route
+          path="/companies"
+          element={<Companies />}
+        />
+
+
+        <Route
+          path="/companies/:id"
+          element={<Companies />}
+        />
+
+
+
+        {/* Other Pages */}
+
+        <Route
+          path="/placements"
+          element={<Placement />}
+        />
+
+
+        <Route
+          path="/reports"
+          element={<Reports />}
+        />
+
+
+        <Route
+          path="/settings"
+          element={<Settings />}
+        />
+
+
+        <Route
+          path="/logout"
+          element={<Logout />}
+        />
+
+
+      </Route>
+
+
+
+      {/* NOT FOUND */}
+
+      <Route
+        path="*"
+        element={<NotFound />}
+      />
+
+
+    </Routes>
+
+  );
 }
-export default App;
 
+
+export default App;
