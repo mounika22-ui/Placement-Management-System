@@ -1,50 +1,73 @@
 import { useState } from "react";
-import Dashboard from "../../components/Dashboard/Dashboard";
+import { useNavigate, Link } from "react-router-dom";
+import api from "../../api/api";
 import "./Login.css";
 
 function Login() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [message, setMessage] = useState("");
-  const [messageColor, setMessageColor] = useState("");
-  //loading state
-  const [loading,setLoading]=useState(false);
+  const [messageColor, setMessageColor] = useState("red");
+  const [loading, setLoading] = useState(false);
 
-  const handleLogin = () => {
-    setLoading(true)
-    setTimeout(()=>{
-         if (email === "mouni@gmail.com" && password === "mouni22") {
+  async function handleLogin() {
+    if (!email || !password) {
+      setMessage("Please enter Email and Password");
+      setMessageColor("red");
+      return;
+    }
+
+    try {
+      setLoading(true);
+      setMessage("");
+
+      const response = await api.post("/auth/login", {
+        email,
+        password,
+      });
+
+      // Save token
+      localStorage.setItem("token", response.data.token);
+
+      // Save logged in user
+      localStorage.setItem(
+        "user",
+        JSON.stringify(response.data.user)
+      );
+
       setMessage("Login Successful");
       setMessageColor("green");
 
       setTimeout(() => {
-        setIsLoggedIn(true);
-      }, 2000);
-    } else {
-      setMessage(" Invalid Email or Password");
+        navigate("/dashboard");
+      }, 1000);
+
+    } catch (error) {
+      console.log(error);
+
+      setMessage(
+        error.response?.data?.message || "Login Failed"
+      );
       setMessageColor("red");
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
-
-    },2000);
-   
-  };
-
-  if (isLoggedIn) {
-    return <Dashboard />;
   }
 
   return (
     <div className="login-container">
       <div className="login-card">
 
-        <h1 className="title">Placement Management System</h1>
+        <h1 className="title">
+          Placement Management System
+        </h1>
 
         <input
           type="email"
-          placeholder="Enter Email Address"
+          placeholder="Enter Email"
           className="login-input"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -72,9 +95,9 @@ function Login() {
           <p
             style={{
               color: messageColor,
+              textAlign: "center",
               fontWeight: "bold",
               marginBottom: "15px",
-              textAlign: "center",
             }}
           >
             {message}
@@ -84,9 +107,22 @@ function Login() {
         <button
           className="login-btn"
           onClick={handleLogin}
+          disabled={loading}
         >
-          Login
+          {loading ? "Logging in..." : "Login"}
         </button>
+
+        <p
+          style={{
+            textAlign: "center",
+            marginTop: "15px",
+          }}
+        >
+          Don't have an account?{" "}
+          <Link to="/auth/register">
+            Register
+          </Link>
+        </p>
 
       </div>
     </div>
