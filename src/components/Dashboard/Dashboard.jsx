@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import "./Dashboard.css";
 import Clock from "../Clock/Clock";
@@ -40,6 +40,14 @@ function Dashboard() {
   function resetstudent() {
     setTotalstudents(250);
   }
+  useEffect(()=>{
+    const loginStatus = localStorage.getItem("isLoggedIn");
+    if (loginStatus === "true"){
+      console.log("Admin is already logged in")
+    }else{
+      console.log("please login ")
+    }
+  },[]);
 
   return (
     <div className="dashboard">
