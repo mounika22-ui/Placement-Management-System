@@ -5,56 +5,68 @@ function Sidebar() {
   return (
     <div className="sidebar">
       <ul>
+        <li>
+          <NavLink
+            to="/dashboard"
+            className={({ isActive }) => (isActive ? "active" : "")}
+          >
+            Dashboard
+          </NavLink>
+        </li>
 
-        <NavLink
-          to="/dashboard"
-          className={({ isActive }) => (isActive ? "active" : "")}
-        >
-          <li>Dashboard</li>
-        </NavLink>
+        <li>
+          <NavLink
+            to="/students"
+            className={({ isActive }) => (isActive ? "active" : "")}
+          >
+            Students
+          </NavLink>
+        </li>
 
-        <NavLink
-          to="/students"
-          className={({ isActive }) => (isActive ? "active" : "")}
-        >
-          <li>Students</li>
-        </NavLink>
+        <li>
+          <NavLink
+            to="/companies"
+            className={({ isActive }) => (isActive ? "active" : "")}
+          >
+            Companies
+          </NavLink>
+        </li>
 
-        <NavLink
-          to="/companies"
-          className={({ isActive }) => (isActive ? "active" : "")}
-        >
-          <li>Companies</li>
-        </NavLink>
+        <li>
+          <NavLink
+            to="/placements"
+            className={({ isActive }) => (isActive ? "active" : "")}
+          >
+            Placements
+          </NavLink>
+        </li>
 
-        <NavLink
-          to="/placements"
-          className={({ isActive }) => (isActive ? "active" : "")}
-        >
-          <li>Placements</li>
-        </NavLink>
+        <li>
+          <NavLink
+            to="/reports"
+            className={({ isActive }) => (isActive ? "active" : "")}
+          >
+            Reports
+          </NavLink>
+        </li>
 
-        <NavLink
-          to="/reports"
-          className={({ isActive }) => (isActive ? "active" : "")}
-        >
-          <li>Reports</li>
-        </NavLink>
+        <li>
+          <NavLink
+            to="/settings"
+            className={({ isActive }) => (isActive ? "active" : "")}
+          >
+            Settings
+          </NavLink>
+        </li>
 
-        <NavLink
-          to="/settings"
-          className={({ isActive }) => (isActive ? "active" : "")}
-        >
-          <li>Settings</li>
-        </NavLink>
-
-        <NavLink
-          to="/login"
-          className={({ isActive }) => (isActive ? "active" : "")}
-        >
-          <li>Logout</li>
-        </NavLink>
-
+        <li>
+          <NavLink
+            to="/logout"
+            className={({ isActive }) => (isActive ? "active" : "")}
+          >
+            Logout
+          </NavLink>
+        </li>
       </ul>
     </div>
   );
